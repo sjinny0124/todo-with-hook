@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import TodoList from './components/TodoList';
 
@@ -9,76 +9,64 @@ const Page = styled.div`
   min-height: 80vh;
 `;
 
-class TodoListPage extends React.Component {
-  constructor(props) {
-    super(props);
+function TodoListPage(props) {
+  const todo = localStorage.getItem('todos') || '[]';
 
-    const todo = localStorage.getItem('todos');
+  const [items, setItems] = useState(JSON.parse(todo));
 
-    this.state = {
-      items: JSON.parse(todo) || [],
-    };
+  this.headerRef = React.createRef();
 
-    this.headerRef = React.createRef();
-  }
-  componentWillUnmount() {
-    localStorage.setItem('todos', JSON.stringify(this.state.items));
-  }
+  // componentWillUnmount() {
+  //   localStorage.setItem('todos', JSON.stringify(this.state.items));
+  // }
 
-  handleSelectAll = () => {
+  const handleSelectAll = () => {
     const {items} = this.state;
 
-    this.setState({
-      items: items.map(item => {
+    setItems(
+      items.map(item => {
         item.completed = true;
         return item;
-      }),
-    });
+      })
+    );
   };
 
-  handleUnselectAll = () => {
+  const handleUnselectAll = () => {
     const {items} = this.state;
-
-    this.setState({
-      items: items.map(item => {
+    setItems(
+      items.map(item => {
         item.completed = false;
         return item;
-      }),
-    });
+      })
+    );
   };
 
-  handleChangeComplete = (idx, item) => {
+  const handleChangeComplete = (idx, item) => {
     const {items} = this.state;
     items[idx] = item;
 
-    this.setState({
-      items: [...items],
-    });
+    setItems([...items]);
   };
 
-  handleEditItem = (index, value) => {
+  const handleEditItem = (index, value) => {
     const {items} = this.state;
     items[index].name = value;
 
     localStorage.setItem('todos', JSON.stringify(items));
 
-    this.setState({
-      items: [...items],
-    });
+    setItems([...items]);
   };
 
-  handleDeleteItem = index => {
+  const handleDeleteItem = index => {
     const {items} = this.state;
     items.splice(index, 1);
 
     localStorage.setItem('todos', JSON.stringify(items));
 
-    this.setState({
-      items: [...items],
-    });
+    setItems([...items]);
   };
 
-  handleAddItem = text => {
+  const handleAddItem = text => {
     this.setState(prevState => {
       const items = [...prevState.items, {name: text, completed: false}];
 
@@ -88,21 +76,19 @@ class TodoListPage extends React.Component {
       };
     });
   };
-  render() {
-    return (
-      <Page>
-        <TodoList
-          items={this.state.items}
-          onCreate={this.handleAddItem}
-          onDelete={this.handleDeleteItem}
-          onEdit={this.handleEditItem}
-          onSelectAll={this.handleSelectAll}
-          onUnselectAll={this.handleUnselectAll}
-          onChangeComplete={this.handleChangeComplete}
-        />
-      </Page>
-    );
-  }
+  return (
+    <Page>
+      <TodoList
+        items={items}
+        onCreate={handleAddItem}
+        onDelete={handleDeleteItem}
+        onEdit={handleEditItem}
+        onSelectAll={handleSelectAll}
+        onUnselectAll={handleUnselectAll}
+        onChangeComplete={handleChangeComplete}
+      />
+    </Page>
+  );
 }
 
 export default TodoListPage;

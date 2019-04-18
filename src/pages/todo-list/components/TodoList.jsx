@@ -14,8 +14,8 @@ function TodoList(props) {
     onCreate,
     onChangeComplete,
   } = props;
-  const isSelectedAll = items.every(({completed}) => completed);
 
+  const isSelectedAll = items.every(({completed}) => completed);
   const inputRef = useRef();
 
   const handleEnterTodoText = e => {
