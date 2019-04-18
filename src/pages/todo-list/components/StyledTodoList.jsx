@@ -1,10 +1,9 @@
 import styled from 'styled-components';
 
 const StyledTodoList = styled.div`
-  margin: 20px;
   border: 1px solid #ccc;
   padding: 10px;
-  width: 600px;
+  width: 100%;
 
   .TodoListItem {
     cursor: pointer;
