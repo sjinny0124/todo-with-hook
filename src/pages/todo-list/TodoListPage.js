@@ -14,15 +14,13 @@ function TodoListPage(props) {
 
   const [items, setItems] = useState(JSON.parse(todo));
 
-  this.headerRef = React.createRef();
+  //this.headerRef = React.createRef();
 
   // componentWillUnmount() {
   //   localStorage.setItem('todos', JSON.stringify(this.state.items));
   // }
 
   const handleSelectAll = () => {
-    const {items} = this.state;
-
     setItems(
       items.map(item => {
         item.completed = true;
@@ -32,7 +30,6 @@ function TodoListPage(props) {
   };
 
   const handleUnselectAll = () => {
-    const {items} = this.state;
     setItems(
       items.map(item => {
         item.completed = false;
@@ -42,40 +39,27 @@ function TodoListPage(props) {
   };
 
   const handleChangeComplete = (idx, item) => {
-    const {items} = this.state;
     items[idx] = item;
-
     setItems([...items]);
   };
 
   const handleEditItem = (index, value) => {
-    const {items} = this.state;
     items[index].name = value;
-
     localStorage.setItem('todos', JSON.stringify(items));
-
     setItems([...items]);
   };
 
   const handleDeleteItem = index => {
-    const {items} = this.state;
     items.splice(index, 1);
-
     localStorage.setItem('todos', JSON.stringify(items));
-
     setItems([...items]);
   };
 
   const handleAddItem = text => {
-    this.setState(prevState => {
-      const items = [...prevState.items, {name: text, completed: false}];
-
-      localStorage.setItem('todos', JSON.stringify(items));
-      return {
-        items,
-      };
-    });
+    const newItems = [...items, {name: text, completed: false}];
+    setItems(newItems);
   };
+
   return (
     <Page>
       <TodoList
