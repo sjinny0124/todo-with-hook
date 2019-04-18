@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TodoListItem from './TodoListItem';
-import './TodoList.less';
+import styled from "styled-components";
+import TodoListless from './TodoList.less';
 import {Input, Button, Icon} from 'antd';
 import PropTypes from 'prop-types';
 
-class TodoList extends React.Component {
+const Page = styled.div`
+TodoListless
+`;
+
+function TodoList(props) {
+
+  const {items, onCreate, onChangeComplete} = props;
+  const isSelectedAll = items.every(({completed}) => completed);
+
   static propTypes = {
     items: PropTypes.arrayOf(
       PropTypes.shape({
@@ -15,34 +24,26 @@ class TodoList extends React.Component {
     onUnselectAll: PropTypes.func,
   };
 
-  constructor(props) {
-    super(props);
+  this.input = React.createRef();
 
-    this.input = React.createRef();
-  }
-
-  handleEnterTodoText = e => {
-    this.props.onCreate(e.target.value);
+  const handleEnterTodoText = e => {
+    onCreate(e.target.value);
     this.input.current.setState({
       value: '',
     });
   };
 
-  handleChangeComplteItem = (item, index, value) => {
+  const handleChangeComplteItem = (item, index, value) => {
     item.completed = value;
-    this.props.onChangeComplete(index, item);
+    onChangeComplete(index, item);
   };
 
-  render() {
-    const {items} = this.props;
-    const isSelectedAll = items.every(({completed}) => completed);
-
     return (
-      <div className="TodoList">
+      <Page className="TodoList">
         <div>
           <Input
             ref={this.input}
-            onPressEnter={this.handleEnterTodoText}
+            onPressEnter={handleEnterTodoText}
             addonAfter={<Icon type="plus" />}
           />
         </div>
@@ -53,10 +54,10 @@ class TodoList extends React.Component {
               <TodoListItem
                 key={`item-${index}`}
                 {...item}
-                onDelete={e => this.props.onDelete(index)}
-                onEdit={value => this.props.onEdit(index, value)}
+                onDelete={e => onDelete(index)}
+                onEdit={value => onEdit(index, value)}
                 onChangeSelect={e =>
-                  this.handleChangeComplteItem(item, index, e.target.checked)
+                  handleChangeComplteItem(item, index, e.target.checked)
                 }
               />
             );
@@ -65,9 +66,9 @@ class TodoList extends React.Component {
 
         <div className={'footer'}>
           {isSelectedAll ? (
-            <Button onClick={this.props.onUnselectAll}>선택해제</Button>
+            <Button onClick={onUnselectAll}>선택해제</Button>
           ) : (
-            <Button onClick={this.props.onSelectAll}>전체선택</Button>
+            <Button onClick={onSelectAll}>전체선택</Button>
           )}
 
           <div>
@@ -75,9 +76,8 @@ class TodoList extends React.Component {
             <span>완료 {items.filter(item => item.completed).length}</span>
           </div>
         </div>
-      </div>
+      </Page>
     );
-  }
 }
 
 export default TodoList;
