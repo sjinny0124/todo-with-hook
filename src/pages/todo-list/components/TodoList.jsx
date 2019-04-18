@@ -31,7 +31,7 @@ function TodoList(props) {
   };
 
   return (
-    <div className="TodoList">
+    <StyledTodoList className="TodoList">
       <div>
         <Input
           ref={inputRef}
@@ -68,8 +68,7 @@ function TodoList(props) {
           <span>완료 {items.filter(item => item.completed).length}</span>
         </div>
       </div>
-      <StyledTodoList />
-    </div>
+    </StyledTodoList>
   );
 }
 
