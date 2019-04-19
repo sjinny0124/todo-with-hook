@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, {useRef} from 'react';
 import styled from 'styled-components';
 import TodoList from './components/TodoList';
 import CreateTodo from './components/CreateTodo';
 import TodoListFooter from './components/TodoListFooter';
+import {useLocalStorage} from '../../hooks';
 
 const Page = styled.div`
   min-height: 80vh;
@@ -18,16 +19,13 @@ const Page = styled.div`
 `;
 
 function TodoListPage(props) {
-  const initialState = () => {
-    const todo = localStorage.getItem('todos') || '[]';
-    return JSON.parse(todo);
-  };
+  const todoId = useRef(0);
 
-  const [items, setItems] = useState(initialState);
-
-  useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(items));
-  }, [items]);
+  const [items, setItems] = useLocalStorage('todos', [], values => {
+    todoId.current = values.reduce((sum, value) => {
+      return Math.max(sum, value.id); //가장 큰 값을 반환
+    }, 0);
+  });
 
   const handleSelectAll = () => {
     setItems(
@@ -54,20 +52,25 @@ function TodoListPage(props) {
 
   const handleEditItem = (index, value) => {
     items[index].name = value;
-    //localStorage.setItem('todos', JSON.stringify(items));
     setItems([...items]);
   };
 
   const handleDeleteItem = index => {
     items.splice(index, 1);
-    //localStorage.setItem('todos', JSON.stringify(items));
     setItems([...items]);
   };
 
   const handleAddItem = text => {
-    const newItems = [...items, {name: text, completed: false}];
+    //todoId.current += 1;
+
+    const newItems = [
+      ...items,
+      {id: todoId.current, name: text, completed: false},
+    ];
     setItems(newItems);
   };
+
+  console.log(todoId);
 
   return (
     <Page>

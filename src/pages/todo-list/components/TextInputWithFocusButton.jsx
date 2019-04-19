@@ -5,7 +5,8 @@ export default function TextInputWithFocusButton() {
   const onButtonClick = e => {
     // `current` points to the mounted text input element
     inputEl.current.focus();
-    inputEl.current.setSelectionRange(0, e.target.value.length - 1);
+    //inputEl.current.setSelectionRange(0, -1);
+    inputEl.current.setSelectionRange(0, inputEl.current.value.length - 1);
   };
   return (
     <>
