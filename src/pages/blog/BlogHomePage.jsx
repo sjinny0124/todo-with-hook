@@ -29,6 +29,7 @@ export default function BlogHomePage(props) {
   //라우트와 1:1매칭 -> history, location, match를 갖고있음
   const {isAuthenticated} = useContext(AuthContext);
   const {posts} = useContext(BlogContext);
+
   console.log(props);
   function handleClick() {
     props.history.push('/blog/new-post');

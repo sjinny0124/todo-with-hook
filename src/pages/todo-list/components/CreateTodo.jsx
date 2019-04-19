@@ -1,10 +1,10 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useContext} from 'react';
 import {Input} from 'antd';
-
+import {TodoContext} from '../../../contexts/TodoContext';
 const MAX_LEN = 20;
 
 export default function CreateTodo(props) {
-  const {onCreate} = props;
+  const {onCreate} = useContext(TodoContext);
   const inputRef = useRef();
   const [count, setCount] = useState(MAX_LEN);
 

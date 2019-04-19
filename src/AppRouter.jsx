@@ -16,6 +16,7 @@ import BlogDetailPage from './pages/blog/BlogDetailPage';
 import BlogPostPage from './pages/blog/BlogPostPage';
 import GuestHomePage from './pages/guest/GuestHomePage';
 import {BlogProvider} from './contexts/BlogContext';
+import {TodoProvider} from './contexts/TodoContext';
 
 const PrivateRoute = ({component: Component, ...rest}) => {
   const {isAuthenticated} = useContext(AuthContext);
@@ -52,7 +53,9 @@ const AppRouter = props => (
       </BlogProvider>
       <Route path="/login/" component={AboutPage} />
       <Route path="/guest/" component={GuestHomePage} />
-      <PrivateRoute path="/todo-list/" component={TodoListPage} />
+      <TodoProvider>
+        <PrivateRoute path="/todo-list/" component={TodoListPage} />
+      </TodoProvider>
     </div>
   </Router>
 );
