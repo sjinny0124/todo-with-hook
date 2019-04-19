@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import {AuthContext} from '../../contexts/AuthContext';
 import {BlogContext} from '../../contexts/BlogContext';
 import {markdown} from 'markdown';
+import {Link} from 'react-router-dom';
 
 const Page = styled.div`
   .new-post-button {
@@ -25,6 +26,7 @@ const Page = styled.div`
   }
 `;
 
+console.log(markdown);
 export default function BlogHomePage(props) {
   //라우트와 1:1매칭 -> history, location, match를 갖고있음
   const {isAuthenticated} = useContext(AuthContext);
@@ -41,10 +43,13 @@ export default function BlogHomePage(props) {
       <div>
         {posts.map(post => {
           return (
-            <div
-              key={post.id}
-              dangerouslySetInnerHTML={{__html: markdown.toHTML(post.text)}}
-            />
+            <div key={post.id}>
+              <Link to={`/blog/${post.id}`}>
+                <div
+                  dangerouslySetInnerHTML={{__html: markdown.toHTML(post.text)}}
+                />
+              </Link>
+            </div>
           );
         })}
       </div>

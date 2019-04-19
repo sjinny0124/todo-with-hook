@@ -21,13 +21,13 @@ const Page = styled.div`
 function TodoListPage(props) {
   const {
     items,
-    handleAddItem,
     handleChangeComplete,
     handleUnselectAll,
     handleDeleteItem,
     handleEditItem,
     handleSelectAll,
   } = useContext(TodoContext);
+
   return (
     <Page>
       <CreateTodo />
