@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 import {AuthContext} from '../contexts';
-import TextInputWithFocusButton from './todo-list/components/TextInputWithFocusButton';
+import TextInputWithFocusButton from '../components/TextInputWithFocusButton';
 //import BatteryEffect from './todo-list/components/BatteryEffect';
 
 const Page = styled.div`

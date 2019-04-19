@@ -26,7 +26,7 @@ export default function CreateTodo(props) {
     const text = e.target.value;
 
     //console.log(e.key, e.target.value);
-    console.log(text.length);
+    //console.log(text.length);
 
     if (20 <= text.length && e.key !== 'Backspace') {
       e.preventDefault();

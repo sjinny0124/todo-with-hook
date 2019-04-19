@@ -61,7 +61,7 @@ function TodoListPage(props) {
   };
 
   const handleAddItem = text => {
-    //todoId.current += 1;
+    todoId.current += 1;
 
     const newItems = [
       ...items,
