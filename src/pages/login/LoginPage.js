@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import styled from 'styled-components';
 import {Button} from 'antd';
-import {AuthContext} from '../../contexts';
+import {AuthContext} from '../../contexts/AuthContext';
 
 const Page = styled.div`
   text-align: center;
@@ -12,7 +12,7 @@ const Page = styled.div`
   align-items: center;
 `;
 
-export default function LoginPage() {
+export default function LoginPage(props) {
   const {authenticate} = useContext(AuthContext);
   return (
     <Page>
@@ -22,9 +22,9 @@ export default function LoginPage() {
           type={'primary'}
           onClick={() =>
             authenticate(() => {
-              console.log('로그인 완료!', this.props);
+              console.log('로그인 완료!', props);
 
-              this.props.history.replace('/todo-list');
+              props.history.replace('/todo-list');
             })
           }>
           로그인
