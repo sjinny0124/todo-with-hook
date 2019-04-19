@@ -1,12 +1,23 @@
 import React from 'react';
 import {Button} from 'antd';
+import styled from 'styled-components';
 
-export default function FooterTodo(props) {
+const Footer = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  div {
+    span {
+      margin-left: 10px;
+    }
+  }
+`;
+export default function TodoListFooter(props) {
   const {items, onUnselectAll, onSelectAll} = props;
   const isSelectedAll = items.every(({completed}) => completed);
 
   return (
-    <div className="FooterTodo">
+    <Footer className="TodoListFooter">
       {isSelectedAll ? (
         <Button onClick={onUnselectAll}>선택해제</Button>
       ) : (
@@ -17,6 +28,6 @@ export default function FooterTodo(props) {
         <span>할일 {items.filter(item => !item.completed).length}</span>
         <span>완료 {items.filter(item => item.completed).length}</span>
       </div>
-    </div>
+    </Footer>
   );
 }

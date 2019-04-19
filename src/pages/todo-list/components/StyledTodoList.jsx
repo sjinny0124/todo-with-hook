@@ -38,17 +38,6 @@ const StyledTodoList = styled.div`
       }
     }
   }
-
-  .footer {
-    display: flex;
-    justify-content: space-between;
-
-    div {
-      span {
-        margin-left: 10px;
-      }
-    }
-  }
 `;
 
 export default StyledTodoList;

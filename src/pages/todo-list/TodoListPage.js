@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import TodoList from './components/TodoList';
 import CreateTodo from './components/CreateTodo';
-import FooterTodo from './components/FooterTodo';
+import TodoListFooter from './components/TodoListFooter';
 
 const Page = styled.div`
   min-height: 80vh;
@@ -12,15 +12,8 @@ const Page = styled.div`
     margin-bottom: 20px;
   }
 
-  .FooterTodo {
-    display: flex;
-    justify-content: space-between;
-
-    div {
-      span {
-        margin-left: 10px;
-      }
-    }
+  .TodoListFooter {
+    margin-top: 20px;
   }
 `;
 
@@ -85,7 +78,7 @@ function TodoListPage(props) {
         onEdit={handleEditItem}
         onChangeComplete={handleChangeComplete}
       />
-      <FooterTodo
+      <TodoListFooter
         items={items}
         onSelectAll={handleSelectAll}
         onUnselectAll={handleUnselectAll}
