@@ -2,8 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 import {AuthContext} from '../contexts';
-import TextInputWithFocusButton from '../components/TextInputWithFocusButton';
-//import BatteryEffect from './todo-list/components/BatteryEffect';
 
 const Page = styled.div`
   text-align: center;
@@ -17,8 +15,7 @@ const IndexPage = ({auth}) => {
   return (
     <Page>
       <div>
-        <TextInputWithFocusButton />
-        <h1>Welcome to React Basic</h1>
+        <h1>Welcome to React Advance</h1>
         <AuthContext.Consumer>
           {auth =>
             auth.isAuthenticated ? (
